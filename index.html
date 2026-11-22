@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="uk" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тварини дикої природи — Континентальний атлас фауни</title>
+    
+    <!-- Підключення Google Fonts: Playfair Display для заголовків та Inter для основного тексту -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/style.css">
+    
+    <!-- Підключення Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        forest: {
+                            50: '#f3f7f4',
+                            100: '#e2ece4',
+                            200: '#c5d9ca',
+                            300: '#9bbea5',
+                            400: '#6e9d7c',
+                            500: '#4b805c',
+                            600: '#386547',
+                            700: '#2d513a',
+                            800: '#254130',
+                            900: '#1f3628',
+                            950: '#101e16',
+                        },
+                        sand: {
+                            50: '#fbf9f5',
+                            100: '#f5f0e6',
+                            200: '#eae0cc',
+                            300: '#dcc9a8',
+                            400: '#cbac7d',
+                            500: '#bc935b',
+                            600: '#ae7f4b',
+                            700: '#91653e',
+                            800: '#765337',
+                            900: '#61452f',
+                        }
+                    }
+                }
+            }
+        };
+    </script>
+    
+</head>
+<body class="bg-sand-100 text-forest-950 font-sans antialiased selection:bg-forest-700 selection:text-sand-50 overflow-x-hidden">
+
+    <!-- ===================================================================== -->
+    <!-- HEADER: Фіксована горизонтальна навігація + Заголовок H1              -->
+    <!-- ===================================================================== -->
+    <header class="hero-pattern text-sand-50 relative overflow-hidden border-b border-forest-800/60">
+        <!-- Декоративне м'яке підсвічування фону -->
+        <div class="pointer-events-none absolute -top-24 -left-24 w-96 h-96 rounded-full bg-forest-500/15 blur-3xl"></div>
+        <div class="pointer-events-none absolute -bottom-24 -right-24 w-96 h-96 rounded-full bg-sand-500/15 blur-3xl"></div>
+
+        <!-- Горизонтальне меню навігації <nav> -->
+        <nav id="top-nav" aria-label="Навігація по континентах" class="fixed top-0 left-0 right-0 z-50 bg-forest-950/90 backdrop-blur-md border-b border-forest-800/80 shadow-lg">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-16">
+                    <!-- Логотип-якір на початок сторінки -->
+                    <a href="#top" class="flex items-center gap-2.5 text-sand-100 hover:text-sand-300 transition-colors shrink-0 mr-4" title="На початок">
+                        <span class="w-8 h-8 rounded-xl bg-forest-700/80 border border-forest-500/40 flex items-center justify-center text-sand-300 shadow-inner">
+                            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/>
+                                <path d="M2 12h20"/>
+                            </svg>
+                        </span>
+                        <span class="font-serif font-bold tracking-wide text-base sm:text-lg hidden sm:inline">Атлас Фауни</span>
+                    </a>
+
+                    <!-- Горизонтальний список посилань на 6 континентів -->
+                    <ul id="header-nav-list" class="flex items-center gap-1 sm:gap-2 overflow-x-auto no-scrollbar py-2">
+                        <li class="shrink-0">
+                            <a href="#eurasia" data-target="eurasia" class="nav-link active block px-3.5 py-2 rounded-xl text-xs sm:text-sm font-medium text-sand-200 hover:text-white hover:bg-white/10">
+                                Євразія
+                            </a>
+                        </li>
+                        <li class="shrink-0">
+                            <a href="#africa" data-target="africa" class="nav-link block px-3.5 py-2 rounded-xl text-xs sm:text-sm font-medium text-sand-200 hover:text-white hover:bg-white/10">
+                                Африка
+                            </a>
+                        </li>
+                        <li class="shrink-0">
+                            <a href="#north-america" data-target="north-america" class="nav-link block px-3.5 py-2 rounded-xl text-xs sm:text-sm font-medium text-sand-200 hover:text-white hover:bg-white/10">
+                                Північна Америка
+                            </a>
+                        </li>
+                        <li class="shrink-0">
+                            <a href="#south-america" data-target="south-america" class="nav-link block px-3.5 py-2 rounded-xl text-xs sm:text-sm font-medium text-sand-200 hover:text-white hover:bg-white/10">
+                                Південна Америка
+                            </a>
+                        </li>
+                        <li class="shrink-0">
+                            <a href="#australia" data-target="australia" class="nav-link block px-3.5 py-2 rounded-xl text-xs sm:text-sm font-medium text-sand-200 hover:text-white hover:bg-white/10">
+                                Австралія
+                            </a>
+                        </li>
+                        <li class="shrink-0">
+                            <a href="#antarctica" data-target="antarctica" class="nav-link block px-3.5 py-2 rounded-xl text-xs sm:text-sm font-medium text-sand-200 hover:text-white hover:bg-white/10">
+                                Антарктида
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Головний заголовок <h1> під навігацією -->
+        <div id="top" class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-16 sm:pt-36 sm:pb-24 text-center relative z-10">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-forest-800/75 border border-forest-600/50 text-sand-300 text-xs sm:text-sm font-medium tracking-wider uppercase mb-6 shadow-sm">
+                <span class="w-2 h-2 rounded-full bg-sand-400 animate-pulse"></span>
+                Шість континентів нашої планети
+            </div>
+            
+            <h1 class="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-sand-50 leading-tight mb-6 drop-shadow-sm">
+                Тварини дикої природи
+            </h1>
+            
+            <p class="max-w-2xl mx-auto text-base sm:text-lg md:text-xl text-sand-200/90 leading-relaxed font-normal">
+                Подорож найвіддаленішими куточками Землі: від високогір’їв Євразії та безкраїх саван Африки до крижаних просторів Антарктиди.
+            </p>
+        </div>
+    </header>
+
+    <!-- ===================================================================== -->
+    <!-- MAIN: 6 унікальних секцій <section> за континентами                   -->
+    <!-- ===================================================================== -->
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20 space-y-24 sm:space-y-32">
+
+        <!-- 1. КОНТИНЕНТ: ЄВРАЗІЯ -->
+        <section id="eurasia" class="continent-section scroll-mt-24">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between border-b border-sand-300 pb-5 mb-10 sm:mb-14 gap-3">
+                <div>
+                    <span class="text-xs font-bold uppercase tracking-widest text-forest-600 block mb-1">Континент 01</span>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-bold text-forest-950">Євразія</h2>
+                </div>
+                <p class="text-sm sm:text-base text-forest-700 max-w-md">
+                    Найбільший материк Землі, де сувора тайга та засніжені гірські хребти стали домом для рідкісних хижаків.
+                </p>
+            </div>
+
+            <ul class="animal-list space-y-10 sm:space-y-14">
+                <!-- Непарний <li> (1): Фото зліва, опис справа -->
+                <li class="animal-card reveal-item bg-sand-50 rounded-3xl p-5 sm:p-8 shadow-sm border border-sand-200/90 hover:border-forest-400/70 hover:shadow-xl flex flex-col md:flex-row items-center gap-8 lg:gap-12">
+                    <div class="photo-wrapper w-full md:w-1/2 aspect-[16/11] shrink-0">
+                        <img 
+                            src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Irbis4.JPG/1280px-Irbis4.JPG" 
+                            alt="Сніговий барс на гірському схилі"
+                            referrerpolicy="no-referrer"
+                            onerror="this.onerror=null;this.src='https://placehold.co/800x550/254130/f5f0e6?text=Сніговий+барс';"
+                            class="w-full h-full object-cover"
+                            loading="lazy"
+                        >
+                        <div class="photo-glare"></div>
+                        <span class="absolute top-3 left-3 px-3 py-1 rounded-full text-xs font-semibold bg-forest-950/75 text-sand-100 backdrop-blur-sm">
+                            Високогір’я Центральної Азії
+                        </span>
+                    </div>
+                    <div class="desc-box w-full md:w-1/2 space-y-4">
+                        <div class="accent-bar"></div>
+                        <h3 class="font-serif text-2xl sm:text-3xl font-bold text-forest-900">
+                            Сніговий барс
+                        </h3>
+                        <p class="text-forest-800/90 text-base sm:text-lg leading-relaxed">
+                            Невловимий «привид гір» (<em>Panthera uncia</em>), який мешкає на висоті від 3000 до 5500 метрів у скелястих хребтах Гімалаїв, Паміру та Алтаю. Густе димчасто-сіре хутро з темними розетками ідеально маскує його серед снігу й каміння, а довгий пухнастий хвіст допомагає утримувати рівновагу під час стрибків завдовжки до 15 метрів.
+                        </p>
+                    </div>
+                </li>
+
+                <!-- Парний <li> (2): Опис зліва, фото справа (через CSS nth-child(even)) -->
+                <li class="animal-card reveal-item bg-sand-50 rounded-3xl p-5 sm:p-8 shadow-sm border border-sand-200/90 hover:border-forest-400/70 hover:shadow-xl flex flex-col md:flex-row items-center gap-8 lg:gap-12">
+                    <div class="photo-wrapper w-full md:w-1/2 aspect-[16/11] shrink-0">
+                        <img 
+                            src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/2010-kodiak-bear-1.jpg/1280px-2010-kodiak-bear-1.jpg" 
+                            alt="Євразійський бурий ведмідь у природному середовищі"
+                            referrerpolicy="no-referrer"
+                            onerror="this.onerror=null;this.src='https://placehold.co/800x550/765337/f5f0e6?text=Євразійський+бурий+ведмідь';"
+                            class="w-full h-full object-cover"
+                            loading="lazy"
+                        >
+                        <div class="photo-glare"></div>
+                        <span class="absolute top-3 right-3 px-3 py-1 rounded-full text-xs font-semibold bg-forest-950/75 text-sand-100 backdrop-blur-sm">
+                            Хвойні та мішані ліси
+                        </span>
+                    </div>
+                    <div class="desc-box w-full md:w-1/2 space-y-4">
+                        <div class="accent-bar"></div>
+                        <h3 class="font-serif text-2xl sm:text-3xl font-bold text-forest-900">
+                            Євразійський бурий ведмідь
+                        </h3>
+                        <p class="text-forest-800/90 text-base sm:text-lg leading-relaxed">
+                            Могутній господар лісових масивів Євразії (<em>Ursus arctos</em>), відомий своєю витривалістю, розвиненим інтелектом і надзвичайним нюхом. Попри масивну статуру, бурий ведмідь здатний розганятися до 50 км/год, вправно ловити рибу в гірських річках і впадати в зимовий сон у затишному барлозі.
+                        </p>
+                    </div>
+                </li>
+
+                <!-- Непарний <li> (3): Фото зліва, опис справа -->
+                <li class="animal-card reveal-item bg-sand-50 rounded-3xl p-5 sm:p-8 shadow-sm border border-sand-200/90 hover:border-forest-400/70 hover:shadow-xl flex flex-col md:flex-row items-center gap-8 lg:gap-12">
+                    <div class="photo-wrapper w-full md:w-1/2 aspect-[16/11] shrink-0">
+                        <img 
+                            src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/P.t.altaica_Tomak_Male.jpg/1280px-P.t.altaica_Tomak_Male.jpg" 
+                            alt="Амурський тигр у засніженому лісі"
+                            referrerpolicy="no-referrer"
+                            onerror="this.onerror=null;this.src='https://placehold.co/800x550/91653e/f5f0e6?text=Амурський+тигр';"
+                            class="w-full h-full object-cover"
+                            loading="lazy"
+                        >
+                        <div class="photo-glare"></div>
+                        <span class="absolute top-3 left-3 px-3 py-1 rounded-full text-xs font-semibold bg-forest-950/75 text-sand-100 backdrop-blur-sm">
+                            Уссурійська тайга
+                        </span>
+                    </div>
+                    <div class="desc-box w-full md:w-1/2 space-y-4">
+                        <div class="accent-bar"></div>
+                        <h3 class="font-serif text-2xl sm:text-3xl font-bold text-forest-900">
+                            Амурський тигр
+                        </h3>
+                        <p class="text-forest-800/90 text-base sm:text-lg leading-relaxed">
+                            Найбільший підвид тигра у світі (<em>Panthera tigris altaica</em>) та єдиний, що пристосувався до життя в суворих засніжених лісах. Його густа зимова шуба має світліший рудий відтінок, а візерунок чорних смуг на хутрі кожного тигра настільки ж унікальний, як відбитки пальців людини.
+                        </p>
+                    </div>
+                </li>
+            </ul>
+        </section>
+
+        <!-- 2. КОНТИНЕНТ: АФРИКА -->
+        <section id="africa" class="continent-section scroll-mt-24">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between border-b border-sand-300 pb-5 mb-10 sm:mb-14 gap-3">
+                <div>
+                    <span class="text-xs font-bold uppercase tracking-widest text-sand-700 block mb-1">Континент 02</span>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-bold text-forest-950">Африка</h2>
+                </div>
+                <p class="text-sm sm:text-base text-forest-700 max-w-md">
+                    Колиска дикої природи, де золотисті савани розкривають велич найбільших наземних ссавців планети.
+                </p>
+            </div>
+
+            <ul class="animal-list space-y-10 sm:space-y-14">
+                <!-- Непарний <li> (1): Фото зліва, опис справа -->
+                <li class="animal-card reveal-item bg-sand-50 rounded-3xl p-5 sm:p-8 shadow-sm border border-sand-200/90 hover:border-sand-500/70 hover:shadow-xl flex flex-col md:flex-row items-center gap-8 lg:gap-12">
+                    <div class="photo-wrapper w-full md:w-1/2 aspect-[16/11] shrink-0">
+                        <img 
+                            src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/African_Elephant_%28Loxodonta_africana%29_male_%2817289351322%29.jpg/1280px-African_Elephant_%28Loxodonta_africana%29_male_%2817289351322%29.jpg" 
+                            alt="Африканський саванний слон у савані"
+                            referrerpolicy="no-referrer"
+                            onerror="this.onerror=null;this.src='https://placehold.co/800x550/61452f/f5f0e6?text=Африканський+слон';"
+                            class="w-full h-full object-cover"
+                            loading="lazy"
+                        >
+                        <div class="photo-glare"></div>
+                        <span class="absolute top-3 left-3 px-3 py-1 rounded-full text-xs font-semibold bg-forest-950/75 text-sand-100 backdrop-blur-sm">
+                            Савани Субсахарської Африки
+                        </span>
+                    </div>
+                    <div class="desc-box w-full md:w-1/2 space-y-4">
+                        <div class="accent-bar"></div>
+                        <h3 class="font-serif text-2xl sm:text-3xl font-bold text-forest-900">
+                            Африканський саванний слон
+                        </h3>
+                        <p class="text-forest-800/90 text-base sm:text-lg leading-relaxed">
+                            Найбільша наземна тварина на Землі (<em>Loxodonta africana</em>), маса якої може сягати 6 тонн. Великі вуха допомагають слонам охолоджуватися під палючим сонцем, а чутливий хобот, що налічує понад 40 тисяч м’язів, слугує одночасно для дихання, пиття, спілкування та зривання листя.
+                        </p>
+                    </div>
+                </li>
+
+                <!-- Парний <li> (2): Опис зліва, фото справа -->
+                <li class="animal-card reveal-item bg-sand-50 rounded-3xl p-5 sm:p-8 shadow-sm border border-sand-200/90 hover:border-sand-500/70 hover:shadow-xl flex flex-col md:flex-row items-center gap-8 lg:gap-12">
+                    <div class="photo-wrapper w-full md:w-1/2 aspect-[16/11] shrink-0">
+                        <img 
+                            src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Lion_waiting_in_Namibia.jpg/1280px-Lion_waiting_in_Namibia.jpg" 
+                            alt="Африканський лев у Намібії"
+                            referrerpolicy="no-referrer"
+                            onerror="this.onerror=null;this.src='https://placehold.co/800x550/91653e/f5f0e6?text=Африканський+лев';"
+                            class="w-full h-full object-cover"
+                            loading="lazy"
+                        >
+                        <div class="photo-glare"></div>
+                        <span class="absolute top-3 right-3 px-3 py-1 rounded-full text-xs font-semibold bg-forest-950/75 text-sand-100 backdrop-blur-sm">
+                            Рівнини Серенгеті та Намібії
+                        </span>
+                    </div>
+                    <div class="desc-box w-full md:w-1/2 space-y-4">
+                        <div class="accent-bar"></div>
+                        <h3 class="font-serif text-2xl sm:text-3xl font-bold text-forest-900">
+                            Африканський лев
+                        </h3>
+                        <p class="text-forest-800/90 text-base sm:text-lg leading-relaxed">
+                            Єдиний представник родини котячих (<em>Panthera leo</em>), який живе великими сімейними групами — прайдами. Густа грива самців захищає шию у сутичках і свідчить про силу тварини, а могутній рев лева розноситься саваною на відстань до 8 кілометрів, позначаючи межі володінь.
+                        </p>
+                    </div>
+                </li>
+
+                <!-- Непарний <li> (3): Фото зліва, опис справа -->
+                <li class="animal-card reveal-item bg-sand-50 rounded-3xl p-5 sm:p-8 shadow-sm border border-sand-200/90 hover:border-sand-500/70 hover:shadow-xl flex flex-col md:flex-row items-center gap-8 lg:gap-12">
+                    <div class="photo-wrapper w-full md:w-1/2 aspect-[16/11] shrink-0">
+                        <img 
+                            src="https://commons.wikimedia.org/wiki/Special:FilePath/Giraffe_(Giraffa_camelopardalis)_females.jpg?width=1000" 
+                            alt="Жираф у природному середовищі савани"
+                            referrerpolicy="no-referrer"
+                            onerror="this.onerror=null;this.src='https://commons.wikimedia.org/wiki/Special:FilePath/Giraffe_standing.jpg?width=1000';"
+                            class="w-full h-full object-cover"
+                            loading="lazy"
+                        >
+                        <div class="photo-glare"></div>
+                        <span class="absolute top-3 left-3 px-3 py-1 rounded-full text-xs font-semibold bg-forest-950/75 text-sand-100 backdrop-blur-sm">
+                            Акацієві рідколісся Східної Африки
+                        </span>
+                    </div>
+                    <div class="desc-box w-full md:w-1/2 space-y-4">
+                        <div class="accent-bar"></div>
+                        <h3 class="font-serif text-2xl sm:text-3xl font-bold text-forest-900">
+                            Сітчастий жираф
+                        </h3>
+                        <p class="text-forest-800/90 text-base sm:text-lg leading-relaxed">
+                            Найвища наземна тварина планети (<em>Giraffa reticulata</em>), зріст якої досягає 5,5–6 метрів. Її витончена довга шия містить лише сім хребців — стільки ж, скільки й у людини, а довгий темно-синій язик дозволяє безболісно об’їдати молоде листя з колючих верхівок акацій.
+                        </p>
+                    </div>
+                </li>
+            </ul>
+        </section>
+
+        <!-- 3. КОНТИНЕНТ: ПІВНІЧНА АМЕРИКА -->
+        <section id="north-america" class="continent-section scroll-mt-24">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between border-b border-sand-300 pb-5 mb-10 sm:mb-14 gap-3">
+                <div>
+                    <span class="text-xs font-bold uppercase tracking-widest text-forest-600 block mb-1">Континент 03</span>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-bold text-forest-950">Північна Америка</h2>
+                </div>
+                <p class="text-sm sm:text-base text-forest-700 max-w-md">
+                    Від безкраїх прерій та каньйонів до північних бореальних лісів — край величних птахів і витривалих звірів.
+                </p>
+            </div>
+
+            <ul class="animal-list space-y-10 sm:space-y-14">
+                <!-- Непарний <li> (1): Фото зліва, опис справа -->
+                <li class="animal-card reveal-item bg-sand-50 rounded-3xl p-5 sm:p-8 shadow-sm border border-sand-200/90 hover:border-forest-400/70 hover:shadow-xl flex flex-col md:flex-row items-center gap-8 lg:gap-12">
+                    <div class="photo-wrapper w-full md:w-1/2 aspect-[16/11] shrink-0">
+                        <img 
+                            src="https://commons.wikimedia.org/wiki/Special:FilePath/Bald_Eagle_Portrait.jpg?width=1000" 
+                            alt="Білоголовий орлан перед злетом"
+                            referrerpolicy="no-referrer"
+                            onerror="this.onerror=null;this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/About_to_Launch_%2826075320352%29.jpg/1024px-About_to_Launch_%2826075320352%29.jpg';"
+                            class="w-full h-full object-cover"
+                            loading="lazy"
+                        >
+                        <div class="photo-glare"></div>
+                        <span class="absolute top-3 left-3 px-3 py-1 rounded-full text-xs font-semibold bg-forest-950/75 text-sand-100 backdrop-blur-sm">
+                            Узбережжя та озера континенту
+                        </span>
+                    </div>
+                    <div class="desc-box w-full md:w-1/2 space-y-4">
+                        <div class="accent-bar"></div>
+                        <h3 class="font-serif text-2xl sm:text-3xl font-bold text-forest-900">
+                            Білоголовий орлан
+                        </h3>
+                        <p class="text-forest-800/90 text-base sm:text-lg leading-relaxed">
+                            Могутній хижий птах (<em>Haliaeetus leucocephalus</em>) із розмахом крил понад два метри, який мешкає поблизу великих водойм, багатих на рибу. Його гострий зір у чотири-п’ять разів перевершує людський, дозволяючи помітити здобич у воді з висоти понад кілометр.
+                        </p>
+                    </div>
+                </li>
+
+                <!-- Парний <li> (2): Опис зліва, фото справа -->
+                <li class="animal-card reveal-item bg-sand-50 rounded-3xl p-5 sm:p-8 shadow-sm border border-sand-200/90 hover:border-forest-400/70 hover:shadow-xl flex flex-col md:flex-row items-center gap-8 lg:gap-12">
+                    <div class="photo-wrapper w-full md:w-1/2 aspect-[16/11] shrink-0">
+                        <img 
+                            src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/American_bison_k5680-1.jpg/1280px-American_bison_k5680-1.jpg" 
+                            alt="Американський бізон на пасовищі"
+                            referrerpolicy="no-referrer"
+                            onerror="this.onerror=null;this.src='https://placehold.co/800x550/61452f/f5f0e6?text=Американський+бізон';"
+                            class="w-full h-full object-cover"
+                            loading="lazy"
+                        >
+                        <div class="photo-glare"></div>
+                        <span class="absolute top-3 right-3 px-3 py-1 rounded-full text-xs font-semibold bg-forest-950/75 text-sand-100 backdrop-blur-sm">
+                            Великі рівнини та Єллоустоун
+                        </span>
+                    </div>
+                    <div class="desc-box w-full md:w-1/2 space-y-4">
+                        <div class="accent-bar"></div>
+                        <h3 class="font-serif text-2xl sm:text-3xl font-bold text-forest-900">
+                            Американський бізон
+                        </h3>
+                        <p class="text-forest-800/90 text-base sm:text-lg leading-relaxed">
+                            Найбільший дикий наземний ссавець Північної Америки (<em>Bison bison</em>), символ безкраїх степів та прерій. Вкритий густою темно-бурою шерстю, бізон легко переносить тридцятиградусні морози, розгрібаючи глибокий сніг масивною головою у пошуках трави.
+                        </p>
+                    </div>
+                </li>
+
+                <!-- Непарний <li> (3): Фото зліва, опис справа -->
+                <li class="animal-card reveal-item bg-sand-50 rounded-3xl p-5 sm:p-8 shadow-sm border border-sand-200/90 hover:border-forest-400/70 hover:shadow-xl flex flex-col md:flex-row items-center gap-8 lg:gap-12">
+                    <div class="photo-wrapper w-full md:w-1/2 aspect-[16/11] shrink-0">
+                        <img 
+                            src="https://commons.wikimedia.org/wiki/Special:FilePath/Lynx_Canadensis.jpg?width=1000" 
+                            alt="Канадська рись у зимовому лісі"
+                            referrerpolicy="no-referrer"
+                            onerror="this.onerror=null;this.src='https://commons.wikimedia.org/wiki/Special:FilePath/Canada_lynx_by_Keith_Williams.jpg?width=1000';"
+                            class="w-full h-full object-cover"
+                            loading="lazy"
+                        >
+                        <div class="photo-glare"></div>
+                        <span class="absolute top-3 left-3 px-3 py-1 rounded-full text-xs font-semibold bg-forest-950/75 text-sand-100 backdrop-blur-sm">
+                            Бореальні ліси Канади та Аляски
+                        </span>
+                    </div>
+                    <div class="desc-box w-full md:w-1/2 space-y-4">
+                        <div class="accent-bar"></div>
+                        <h3 class="font-serif text-2xl sm:text-3xl font-bold text-forest-900">
+                            Канадська рись
+                        </h3>
+                        <p class="text-forest-800/90 text-base sm:text-lg leading-relaxed">
+                            Граціозна лісова кішка північної тайги (<em>Lynx canadensis</em>), впізнавана за довгими чорними китичками на вухах і густими бакенбардами. Її широкі опушені лапи працюють немов природні снігоступи, дозволяючи безшумно пересуватися пухким снігом під час полювання на зайців-біляків.
+                        </p>
+                    </div>
+                </li>
+            </ul>
+        </section>
+
+        <!-- 4. КОНТИНЕНТ: ПІВДЕННА АМЕРИКА -->
+        <section id="south-america" class="continent-section scroll-mt-24">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between border-b border-sand-300 pb-5 mb-10 sm:mb-14 gap-3">
+                <div>
+                    <span class="text-xs font-bold uppercase tracking-widest text-forest-600 block mb-1">Континент 04</span>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-bold text-forest-950">Південна Америка</h2>
+                </div>
+                <p class="text-sm sm:text-base text-forest-700 max-w-md">
+                    Смарагдові джунглі Амазонії — скарбниця біорізноманіття з найяскравішими барвами та дивовижними видами.
+                </p>
+            </div>
+
+            <ul class="animal-list space-y-10 sm:space-y-14">
+                <!-- Непарний <li> (1): Фото зліва, опис справа -->
+                <li class="animal-card reveal-item bg-sand-50 rounded-3xl p-5 sm:p-8 shadow-sm border border-sand-200/90 hover:border-forest-400/70 hover:shadow-xl flex flex-col md:flex-row items-center gap-8 lg:gap-12">
+                    <div class="photo-wrapper w-full md:w-1/2 aspect-[16/11] shrink-0">
+                        <img 
+                            src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Standing_jaguar.jpg/1280px-Standing_jaguar.jpg" 
+                            alt="Ягуар у тропічному лісі"
+                            referrerpolicy="no-referrer"
+                            onerror="this.onerror=null;this.src='https://placehold.co/800x550/765337/f5f0e6?text=Ягуар';"
+                            class="w-full h-full object-cover"
+                            loading="lazy"
+                        >
+                        <div class="photo-glare"></div>
+                        <span class="absolute top-3 left-3 px-3 py-1 rounded-full text-xs font-semibold bg-forest-950/75 text-sand-100 backdrop-blur-sm">
+                            Басейн річки Амазонки
+                        </span>
+                    </div>
+                    <div class="desc-box w-full md:w-1/2 space-y-4">
+                        <div class="accent-bar"></div>
+                        <h3 class="font-serif text-2xl sm:text-3xl font-bold text-forest-900">
+                            Ягуар
+                        </h3>
+                        <p class="text-forest-800/90 text-base sm:text-lg leading-relaxed">
+                            Найбільша дика кішка Америки (<em>Panthera onca</em>), володар найпотужнішого укусу серед усіх котячих. На відміну від багатьох інших хижаків, ягуар обожнює воду, чудово плаває в повноводних річках Амазонії, а його золотава шкура прикрашена великими розетками з цятками всередині.
+                        </p>
+                    </div>
+                </li>
+
+                <!-- Парний <li> (2): Опис зліва, фото справа -->
+                <li class="animal-card reveal-item bg-sand-50 rounded-3xl p-5 sm:p-8 shadow-sm border border-sand-200/90 hover:border-forest-400/70 hover:shadow-xl flex flex-col md:flex-row items-center gap-8 lg:gap-12">
+                    <div class="photo-wrapper w-full md:w-1/2 aspect-[16/11] shrink-0">
+                        <img 
+                            src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Bradypus.jpg/1280px-Bradypus.jpg" 
+                            alt="Бурогорлий трипалий лінивець на гілці"
+                            referrerpolicy="no-referrer"
+                            onerror="this.onerror=null;this.src='https://placehold.co/800x550/386547/f5f0e6?text=Трипалий+лінивець';"
+                            class="w-full h-full object-cover"
+                            loading="lazy"
+                        >
+                        <div class="photo-glare"></div>
+                        <span class="absolute top-3 right-3 px-3 py-1 rounded-full text-xs font-semibold bg-forest-950/75 text-sand-100 backdrop-blur-sm">
+                            Крони вологих тропічних лісів
+                        </span>
+                    </div>
+                    <div class="desc-box w-full md:w-1/2 space-y-4">
+                        <div class="accent-bar"></div>
+                        <h3 class="font-serif text-2xl sm:text-3xl font-bold text-forest-900">
+                            Бурогорлий трипалий лінивець
+                        </h3>
+                        <p class="text-forest-800/90 text-base sm:text-lg leading-relaxed">
+                            Неспішний мешканець верхнього ярусу тропічного лісу (<em>Bradypus variegatus</em>), чий надзвичайно повільний обмін речовин є шедевром еволюційної адаптації. У його довгому хутрі оселяються симбіотичні зелені водорості, надаючи шерсті маскувального відтінку листя.
+                        </p>
+                    </div>
+                </li>
+
+                <!-- Непарний <li> (3): Фото зліва, опис справа -->
+                <li class="animal-card reveal-item bg-sand-50 rounded-3xl p-5 sm:p-8 shadow-sm border border-sand-200/90 hover:border-forest-400/70 hover:shadow-xl flex flex-col md:flex-row items-center gap-8 lg:gap-12">
+                    <div class="photo-wrapper w-full md:w-1/2 aspect-[16/11] shrink-0">
+                        <img 
+                            src="https://commons.wikimedia.org/wiki/Special:FilePath/Scarlet_macaw_(Ara_scarlatta,_Ara_macao).jpg?width=1000" 
+                            alt="Червоний ара з яскравим пір'ям"
+                            referrerpolicy="no-referrer"
+                            onerror="this.onerror=null;this.src='https://commons.wikimedia.org/wiki/Special:FilePath/Ara_macao_-Oropel,_Costa_Rica-8.jpg?width=1000';"
+                            class="w-full h-full object-cover"
+                            loading="lazy"
+                        >
+                        <div class="photo-glare"></div>
+                        <span class="absolute top-3 left-3 px-3 py-1 rounded-full text-xs font-semibold bg-forest-950/75 text-sand-100 backdrop-blur-sm">
+                            Неотропічні джунглі
+                        </span>
+                    </div>
+                    <div class="desc-box w-full md:w-1/2 space-y-4">
+                        <div class="accent-bar"></div>
+                        <h3 class="font-serif text-2xl sm:text-3xl font-bold text-forest-900">
+                            Червоний ара
+                        </h3>
+                        <p class="text-forest-800/90 text-base sm:text-lg leading-relaxed">
+                            Один із найяскравіших папуг планети (<em>Ara macao</em>) з насиченим червоним, жовтим та синім оперенням. Ці високоінтелектуальні птахи утворюють пари на все життя, здатні розколювати найміцніші горіхи своїм вигнутим дзьобом і щодня прилітають до глиняних берегів річок за мінералами.
+                        </p>
+                    </div>
+                </li>
+            </ul>
+        </section>
+
+        <!-- 5. КОНТИНЕНТ: АВСТРАЛІЯ -->
+        <section id="australia" class="continent-section scroll-mt-24">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between border-b border-sand-300 pb-5 mb-10 sm:mb-14 gap-3">
+                <div>
+                    <span class="text-xs font-bold uppercase tracking-widest text-sand-700 block mb-1">Континент 05</span>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-bold text-forest-950">Австралія</h2>
+                </div>
+                <p class="text-sm sm:text-base text-forest-700 max-w-md">
+                    Ізольований континент-заповідник, де еволюція зберегла унікальних сумчастих та однопрохідних тварин.
+                </p>
+            </div>
+
+            <ul class="animal-list space-y-10 sm:space-y-14">
+                <!-- Непарний <li> (1): Фото зліва, опис справа -->
+                <li class="animal-card reveal-item bg-sand-50 rounded-3xl p-5 sm:p-8 shadow-sm border border-sand-200/90 hover:border-sand-500/70 hover:shadow-xl flex flex-col md:flex-row items-center gap-8 lg:gap-12">
+                    <div class="photo-wrapper w-full md:w-1/2 aspect-[16/11] shrink-0">
+                        <img 
+                            src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Kangaroo_Australia_01_11_2008_-_retouch.JPG/1280px-Kangaroo_Australia_01_11_2008_-_retouch.JPG" 
+                            alt="Рудий кенгуру на червоноземних рівнинах"
+                            referrerpolicy="no-referrer"
+                            onerror="this.onerror=null;this.src='https://placehold.co/800x550/ae7f4b/f5f0e6?text=Рудий+кенгуру';"
+                            class="w-full h-full object-cover"
+                            loading="lazy"
+                        >
+                        <div class="photo-glare"></div>
+                        <span class="absolute top-3 left-3 px-3 py-1 rounded-full text-xs font-semibold bg-forest-950/75 text-sand-100 backdrop-blur-sm">
+                            Посушливі рівнини Аутбеку
+                        </span>
+                    </div>
+                    <div class="desc-box w-full md:w-1/2 space-y-4">
+                        <div class="accent-bar"></div>
+                        <h3 class="font-serif text-2xl sm:text-3xl font-bold text-forest-900">
+                            Рудий кенгуру
+                        </h3>
+                        <p class="text-forest-800/90 text-base sm:text-lg leading-relaxed">
+                            Найбільша сумчаста тварина у світі (<em>Osphranter rufus</em>), здатна долати величезні відстані посушливими просторами Австралії. Пружні сухожилля задніх ніг працюють як гігантські пружини, дозволяючи робити стрибки до 9 метрів у довжину та розвивати швидкість понад 60 км/год.
+                        </p>
+                    </div>
+                </li>
+
+                <!-- Парний <li> (2): Опис зліва, фото справа -->
+                <li class="animal-card reveal-item bg-sand-50 rounded-3xl p-5 sm:p-8 shadow-sm border border-sand-200/90 hover:border-sand-500/70 hover:shadow-xl flex flex-col md:flex-row items-center gap-8 lg:gap-12">
+                    <div class="photo-wrapper w-full md:w-1/2 aspect-[16/11] shrink-0">
+                        <img 
+                            src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Koala_climbing_tree.jpg/1280px-Koala_climbing_tree.jpg" 
+                            alt="Коала на стовбурі евкаліпта"
+                            referrerpolicy="no-referrer"
+                            onerror="this.onerror=null;this.src='https://placehold.co/800x550/386547/f5f0e6?text=Коала';"
+                            class="w-full h-full object-cover"
+                            loading="lazy"
+                        >
+                        <div class="photo-glare"></div>
+                        <span class="absolute top-3 right-3 px-3 py-1 rounded-full text-xs font-semibold bg-forest-950/75 text-sand-100 backdrop-blur-sm">
+                            Евкаліптові ліси Східної Австралії
+                        </span>
+                    </div>
+                    <div class="desc-box w-full md:w-1/2 space-y-4">
+                        <div class="accent-bar"></div>
+                        <h3 class="font-serif text-2xl sm:text-3xl font-bold text-forest-900">
+                            Коала
+                        </h3>
+                        <p class="text-forest-800/90 text-base sm:text-lg leading-relaxed">
+                            Деревний сумчастий ссавець (<em>Phascolarctos cinereus</em>), який проводить майже все життя серед гілок евкаліптів. На передніх лапах коали є по два протиставлені великі пальці, що забезпечують міцне захоплення кори, а спеціалізована система травлення дозволяє засвоювати волокнисте листя евкаліпта.
+                        </p>
+                    </div>
+                </li>
+
+                <!-- Непарний <li> (3): Фото зліва, опис справа -->
+                <li class="animal-card reveal-item bg-sand-50 rounded-3xl p-5 sm:p-8 shadow-sm border border-sand-200/90 hover:border-sand-500/70 hover:shadow-xl flex flex-col md:flex-row items-center gap-8 lg:gap-12">
+                    <div class="photo-wrapper w-full md:w-1/2 aspect-[16/11] shrink-0">
+                        <img 
+                            src="https://commons.wikimedia.org/wiki/Special:FilePath/Duck-billed_platypus_(Ornithorhynchus_anatinus)_Scottsdale.jpg?width=1000" 
+                            alt="Качкодзьоб у прісній водоймі"
+                            referrerpolicy="no-referrer"
+                            onerror="this.onerror=null;this.src='https://commons.wikimedia.org/wiki/Special:FilePath/Platypus.jpg?width=800';"
+                            class="w-full h-full object-cover"
+                            loading="lazy"
+                        >
+                        <div class="photo-glare"></div>
+                        <span class="absolute top-3 left-3 px-3 py-1 rounded-full text-xs font-semibold bg-forest-950/75 text-sand-100 backdrop-blur-sm">
+                            Прісні річки та струмки Тасманії
+                        </span>
+                    </div>
+                    <div class="desc-box w-full md:w-1/2 space-y-4">
+                        <div class="accent-bar"></div>
+                        <h3 class="font-serif text-2xl sm:text-3xl font-bold text-forest-900">
+                            Качкодзьоб
+                        </h3>
+                        <p class="text-forest-800/90 text-base sm:text-lg leading-relaxed">
+                            Одна з найдивовижніших істот планети (<em>Ornithorhynchus anatinus</em>) — напівводний ссавець, який відкладає яйця та має чутливий дзьоб, схожий на качиний. Під водою качкодзьоб заплющує очі й вуха, орієнтуючись виключно за допомогою електрорецепторів на дзьобі, що вловлюють імпульси здобичі.
+                        </p>
+                    </div>
+                </li>
+            </ul>
+        </section>
+
+        <!-- 6. КОНТИНЕНТ: АНТАРКТИДА -->
+        <section id="antarctica" class="continent-section scroll-mt-24">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between border-b border-sand-300 pb-5 mb-10 sm:mb-14 gap-3">
+                <div>
+                    <span class="text-xs font-bold uppercase tracking-widest text-forest-600 block mb-1">Континент 06</span>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-bold text-forest-950">Антарктида</h2>
+                </div>
+                <p class="text-sm sm:text-base text-forest-700 max-w-md">
+                    Найхолодніший і найвітряніший материк Землі, чиї мешканці пристосувалися до життя на межі криги й океану.
+                </p>
+            </div>
+
+            <ul class="animal-list space-y-10 sm:space-y-14">
+                <!-- Непарний <li> (1): Фото зліва, опис справа -->
+                <li class="animal-card reveal-item bg-sand-50 rounded-3xl p-5 sm:p-8 shadow-sm border border-sand-200/90 hover:border-forest-400/70 hover:shadow-xl flex flex-col md:flex-row items-center gap-8 lg:gap-12">
+                    <div class="photo-wrapper w-full md:w-1/2 aspect-[16/11] shrink-0">
+                        <img 
+                            src="https://commons.wikimedia.org/wiki/Special:FilePath/Manchot_empereur_-_Emperor_Penguin_-_Aptenodytes_forsteri.jpg?width=1000" 
+                            alt="Імператорські пінгвіни на кризі Антарктиди"
+                            referrerpolicy="no-referrer"
+                            onerror="this.onerror=null;this.src='https://commons.wikimedia.org/wiki/Special:FilePath/Aptenodytes_forsteri_-Snow_Hill_Island,_Antarctica_-adults_and_juvenile-8.jpg?width=1000';"
+                            class="w-full h-full object-cover"
+                            loading="lazy"
+                        >
+                        <div class="photo-glare"></div>
+                        <span class="absolute top-3 left-3 px-3 py-1 rounded-full text-xs font-semibold bg-forest-950/75 text-sand-100 backdrop-blur-sm">
+                            Крижані шельфи Антарктиди
+                        </span>
+                    </div>
+                    <div class="desc-box w-full md:w-1/2 space-y-4">
+                        <div class="accent-bar"></div>
+                        <h3 class="font-serif text-2xl sm:text-3xl font-bold text-forest-900">
+                            Імператорський пінгвін
+                        </h3>
+                        <p class="text-forest-800/90 text-base sm:text-lg leading-relaxed">
+                            Найвищий та найважчий серед усіх сучасних пінгвінів (<em>Aptenodytes forsteri</em>), єдиний птах, що виводить потомство під час суворої антарктичної зими. Чотири шари водонепроникного пір’я захищають його від морозів до -50 °C, а під водою він пірнає на глибину понад 500 метрів.
+                        </p>
+                    </div>
+                </li>
+
+                <!-- Парний <li> (2): Опис зліва, фото справа -->
+                <li class="animal-card reveal-item bg-sand-50 rounded-3xl p-5 sm:p-8 shadow-sm border border-sand-200/90 hover:border-forest-400/70 hover:shadow-xl flex flex-col md:flex-row items-center gap-8 lg:gap-12">
+                    <div class="photo-wrapper w-full md:w-1/2 aspect-[16/11] shrink-0">
+                        <img 
+                            src="https://commons.wikimedia.org/wiki/Special:FilePath/Leptonychotes_weddellii.jpg?width=1000" 
+                            alt="Тюлень Ведделла відпочиває на снігу"
+                            referrerpolicy="no-referrer"
+                            onerror="this.onerror=null;this.src='https://commons.wikimedia.org/wiki/Special:FilePath/Weddell_seal_(Leptonychotes_weddellii).jpg?width=1000';"
+                            class="w-full h-full object-cover"
+                            loading="lazy"
+                        >
+                        <div class="photo-glare"></div>
+                        <span class="absolute top-3 right-3 px-3 py-1 rounded-full text-xs font-semibold bg-forest-950/75 text-sand-100 backdrop-blur-sm">
+                            Прибережні льоди Південного океану
+                        </span>
+                    </div>
+                    <div class="desc-box w-full md:w-1/2 space-y-4">
+                        <div class="accent-bar"></div>
+                        <h3 class="font-serif text-2xl sm:text-3xl font-bold text-forest-900">
+                            Тюлень Ведделла
+                        </h3>
+                        <p class="text-forest-800/90 text-base sm:text-lg leading-relaxed">
+                            Найпівденніший ссавець на Землі (<em>Leptonychotes weddellii</em>), який цілий рік мешкає біля берегів Антарктиди. Завдяки особливій будові передніх зубів він підтримує лунки в товстому паковому льоду для дихання та здатний затримувати подих під водою понад 80 хвилин.
+                        </p>
+                    </div>
+                </li>
+
+                <!-- Непарний <li> (3): Фото зліва, опис справа -->
+                <li class="animal-card reveal-item bg-sand-50 rounded-3xl p-5 sm:p-8 shadow-sm border border-sand-200/90 hover:border-forest-400/70 hover:shadow-xl flex flex-col md:flex-row items-center gap-8 lg:gap-12">
+                    <div class="photo-wrapper w-full md:w-1/2 aspect-[16/11] shrink-0">
+                        <img 
+                            src="https://commons.wikimedia.org/wiki/Special:FilePath/Diomedea_exulans_-_SE_Tasmania.jpg?width=1000" 
+                            alt="Мандрівний альбатрос ширяє над хвилями океану"
+                            referrerpolicy="no-referrer"
+                            onerror="this.onerror=null;this.src='https://commons.wikimedia.org/wiki/Special:FilePath/Wandering_albatross_(Diomedea_exulans)_in_flight.jpg?width=1000';"
+                            class="w-full h-full object-cover"
+                            loading="lazy"
+                        >
+                        <div class="photo-glare"></div>
+                        <span class="absolute top-3 left-3 px-3 py-1 rounded-full text-xs font-semibold bg-forest-950/75 text-sand-100 backdrop-blur-sm">
+                            Субантарктичні води та острови
+                        </span>
+                    </div>
+                    <div class="desc-box w-full md:w-1/2 space-y-4">
+                        <div class="accent-bar"></div>
+                        <h3 class="font-serif text-2xl sm:text-3xl font-bold text-forest-900">
+                            Мандрівний альбатрос
+                        </h3>
+                        <p class="text-forest-800/90 text-base sm:text-lg leading-relaxed">
+                            Володар найбільшого розмаху крил серед усіх сучасних птахів — до 3,5 метра (<em>Diomedea exulans</em>). Використовуючи енергію штормових вітрів Південного океану для динамічного ширяння, альбатрос здатний долати тисячі кілометрів над хвилями майже без жодного помаху крил.
+                        </p>
+                    </div>
+                </li>
+            </ul>
+        </section>
+
+    </main>
+
+    <!-- ===================================================================== -->
+    <!-- FOOTER: Горизонтальне меню навігації по континентах, як у <header>    -->
+    <!-- ===================================================================== -->
+    <footer class="bg-forest-950 text-sand-100 border-t border-forest-800/80 mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="flex flex-col items-center text-center gap-6">
+                <a href="#top" class="font-serif text-2xl font-bold text-sand-50 hover:text-sand-300 transition-colors">
+                    Тварини дикої природи
+                </a>
+
+                <!-- Дублювання горизонтального меню навігації <nav> зі списком 6 континентів -->
+                <nav aria-label="Нижня навігація по континентах" class="w-full flex justify-center">
+                    <ul id="footer-nav-list" class="flex flex-wrap items-center justify-center gap-2 sm:gap-3">
+                        <li>
+                            <a href="#eurasia" data-target="eurasia" class="nav-link active block px-4 py-2 rounded-xl text-sm font-medium text-sand-200 hover:text-white hover:bg-white/10">
+                                Євразія
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#africa" data-target="africa" class="nav-link block px-4 py-2 rounded-xl text-sm font-medium text-sand-200 hover:text-white hover:bg-white/10">
+                                Африка
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#north-america" data-target="north-america" class="nav-link block px-4 py-2 rounded-xl text-sm font-medium text-sand-200 hover:text-white hover:bg-white/10">
+                                Північна Америка
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#south-america" data-target="south-america" class="nav-link block px-4 py-2 rounded-xl text-sm font-medium text-sand-200 hover:text-white hover:bg-white/10">
+                                Південна Америка
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#australia" data-target="australia" class="nav-link block px-4 py-2 rounded-xl text-sm font-medium text-sand-200 hover:text-white hover:bg-white/10">
+                                Австралія
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#antarctica" data-target="antarctica" class="nav-link block px-4 py-2 rounded-xl text-sm font-medium text-sand-200 hover:text-white hover:bg-white/10">
+                                Антарктида
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+
+                <div class="w-full max-w-md border-t border-forest-800/80 pt-6 text-xs sm:text-sm text-sand-300/70">
+                    © 2026 Тварини дикої природи • Освітній атлас фауни шести континентів
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===================================================================== -->
+    <!-- JAVASCRIPT: Анімації при наведенні на фото і текст + навігація        -->
+    <!-- ===================================================================== -->
+    <script src="./js/app.js"></script>
+</body>
+</html>

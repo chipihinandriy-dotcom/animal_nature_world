@@ -1,0 +1,142 @@
+/* Приховування смуги прокрутки в горизонтальному мобільному меню зі збереженням скролу */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Декоративний природний фон у шапці сайту */
+        .hero-pattern {
+            background-color: #15261c;
+            background-image: 
+                radial-gradient(at 15% 20%, rgba(75, 128, 92, 0.38) 0px, transparent 52%),
+                radial-gradient(at 85% 80%, rgba(188, 147, 91, 0.24) 0px, transparent 52%),
+                radial-gradient(at 50% 50%, rgba(31, 54, 40, 0.92) 0px, transparent 100%);
+        }
+
+        /* Чергування розташування фото та опису (left-right / right-left) на планшетах і десктопах */
+        @media (min-width: 768px) {
+            .animal-list > li.animal-card:nth-child(odd) {
+                flex-direction: row;
+            }
+            .animal-list > li.animal-card:nth-child(even) {
+                flex-direction: row-reverse;
+            }
+        }
+
+        /* Базові стилі картки тварини з 3D-перспективою */
+        .animal-card {
+            transform-style: preserve-3d;
+            transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+                        box-shadow 0.4s ease,
+                        border-color 0.35s ease;
+            will-change: transform;
+        }
+
+        /* Контейнер фотографії та світловий блік */
+        .photo-wrapper {
+            position: relative;
+            overflow: hidden;
+            border-radius: 1.25rem;
+            box-shadow: 0 12px 28px -8px rgba(16, 30, 22, 0.22);
+            transition: box-shadow 0.4s ease;
+        }
+
+        .photo-wrapper img {
+            transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1), filter 0.45s ease;
+            will-change: transform;
+        }
+
+        .photo-glare {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.35s ease;
+            background: radial-gradient(
+                circle 260px at var(--glare-x, 50%) var(--glare-y, 50%),
+                rgba(255, 255, 255, 0.34),
+                rgba(255, 255, 255, 0.08) 45%,
+                transparent 75%
+            );
+            mix-blend-mode: overlay;
+        }
+
+        .photo-wrapper.is-hovered .photo-glare {
+            opacity: 1;
+        }
+
+        .photo-wrapper.is-hovered {
+            box-shadow: 0 22px 42px -10px rgba(16, 30, 22, 0.35);
+        }
+
+        /* Анімація текстового блоку опису при наведенні */
+        .desc-box {
+            transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .accent-bar {
+            width: 3rem;
+            height: 0.25rem;
+            border-radius: 9999px;
+            background: linear-gradient(90deg, #4b805c, #bc935b);
+            transition: width 0.45s cubic-bezier(0.22, 1, 0.36, 1), background 0.45s ease;
+        }
+
+        .desc-box.is-text-hovered .accent-bar {
+            width: 6.5rem;
+            background: linear-gradient(90deg, #bc935b, #386547);
+        }
+
+        .desc-box h3 {
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .desc-box.is-text-hovered h3 {
+            color: #91653e;
+            transform: translateX(4px);
+        }
+
+        /* Плавна поява карток при прокручуванні сторінки */
+        .reveal-item {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+                        transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .reveal-item.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Стилізація посилань навігації */
+        .nav-link {
+            position: relative;
+            transition: color 0.25s ease, background-color 0.25s ease, transform 0.2s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0.25rem;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            border-radius: 9999px;
+            background-color: #dcc9a8;
+            transform: translateX(-50%);
+            transition: width 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 65%;
+        }
+
+        .nav-link.active {
+            background-color: rgba(255, 255, 255, 0.14);
+            color: #fbf9f5;
+        }
